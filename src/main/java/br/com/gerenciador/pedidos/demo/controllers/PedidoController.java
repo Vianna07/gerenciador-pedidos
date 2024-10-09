@@ -3,6 +3,7 @@ package br.com.gerenciador.pedidos.demo.controllers;
 import java.util.Objects;
 import java.util.Optional;
 
+import br.com.gerenciador.pedidos.demo.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,8 @@ import br.com.gerenciador.pedidos.demo.repositories.PedidoRepository;
 public class PedidoController {
 	@Autowired
 	private PedidoRepository repository;
+	@Autowired
+	private ProdutoRepository produtoRepository;
 	private final String LIST = "pedido/list";
 	private final String LIST_URL = "/pedido/list";
 	private final String FORM = "pedido/form";
@@ -30,9 +33,11 @@ public class PedidoController {
 	public void formModel(Model model, Pedido pedido) {
 		if (Objects.isNull(pedido)) {
 			model.addAttribute("pedido", new Pedido());
+			model.addAttribute("produtos", produtoRepository.findAll());
 			return;
 		}
-		
+
+		model.addAttribute("produtos", produtoRepository.findAll());
 		model.addAttribute("pedido", pedido);
 	}
 	
@@ -43,7 +48,7 @@ public class PedidoController {
 
 	@GetMapping("/list")
 	public String list(Model model) {
-		this.list(model);
+		this.listModel(model);
 		return this.LIST;
 	}
 	

@@ -44,7 +44,7 @@ public class UsuarioController {
 
 	@GetMapping("/list")
 	public String list(Model model) {
-		this.list(model);
+		this.listModel(model);
 		return this.LIST;
 	}
 	

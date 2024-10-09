@@ -32,37 +32,33 @@ public class CarregaBaseDeDados {
 	private ProdutoRepository produtoRepository;
 	
 	@Bean
-	public CommandLineRunner executar() {
+	public CommandLineRunner populateDatabase() {
 		return args -> {
-			List<Produto> produtos = new ArrayList<Produto>(
-					Arrays.asList(
-							new Produto("Arroz", 50, 10f),
-							new Produto("Feijão", 100, 5f),
-							new Produto("Celular", 150, 2000f),
-							new Produto("Teclado", 200, 200f),
-							new Produto("Monitor", 250, 1400f)
-					)
-			);
+			List<Produto> produtos = new ArrayList<>(
+                    Arrays.asList(
+                            new Produto(1, "Arroz", 50, 10.5f),
+                            new Produto(2, "Feijão", 100, 5.2f),
+                            new Produto(3, "Celular", 150, 1999.99f),
+                            new Produto(4, "Teclado", 200, 199.99f),
+                            new Produto(5, "Monitor", 250, 1399.99f)
+                    )
+            );
 			
-			List<Usuario> usuarios = new ArrayList<Usuario>(
-					Arrays.asList(
-							new Usuario("Fernando", "fernando@empresa.com", "+55 (99) 9999-9999", TipoUsuario.FUNCIONARIO),
-							new Usuario("Luckas", "luckaspipipipi@desempregado.com", "+55 (99) 9999-9998", TipoUsuario.ALUNO),
-							new Usuario("Vianna", "viannagustavo@gmail.com", "+55 (99) 9999-9997", TipoUsuario.ALUNO),
-							new Usuario("Maycon", "maycon2010@gmail.com", "+55 (99) 9999-9996", TipoUsuario.ALUNO),
-							new Usuario("Joaquim", "joaquim.curitiba@gmail.com", "55 (99) 9999-9995", TipoUsuario.ALUNO)
-					)
-			);
+			List<Usuario> usuarios = new ArrayList<>(
+                    Arrays.asList(
+                            new Usuario(1, "Fernando", "fernando@empresa.com", "+55 (99) 9999-9999", TipoUsuario.FUNCIONARIO),
+                            new Usuario(2, "Luckas", "luckaspipipipi@desempregado.com", "+55 (99) 9999-9998", TipoUsuario.ALUNO),
+                            new Usuario(3, "Vianna", "viannagustavo@gmail.com", "+55 (99) 9999-9997", TipoUsuario.ADMIN),
+                            new Usuario(4, "Maycon", "maycon2010@gmail.com", "+55 (99) 9999-9996", TipoUsuario.GERENTE),
+                            new Usuario(5, "Joaquim", "joaquim.curitiba@gmail.com", "+55 (99) 9999-9995", TipoUsuario.ALUNO)
+                    )
+            );
 			
-			List<Pedido> pedidos = new ArrayList<Pedido>(
-					Arrays.asList(
-							new Pedido(produtos.get(0), 1, LocalDate.now(), StatusPedido.ABERTO),
-							new Pedido(produtos.get(1), 2, LocalDate.now().plusDays(1), StatusPedido.CANCELADO),
-							new Pedido(produtos.get(2), 3, LocalDate.now().plusDays(2), StatusPedido.ENCERRADO),
-							new Pedido(produtos.get(3), 4, LocalDate.now().plusDays(3), StatusPedido.ENCERRADO),
-							new Pedido(produtos.get(4), 5, LocalDate.now().plusDays(4), StatusPedido.ABERTO)
-					)
-			);
+			List<Pedido> pedidos = new ArrayList<>(
+                    List.of(
+                            new Pedido(4, produtos.getFirst(), 1, LocalDate.now(), StatusPedido.ABERTO)
+                    )
+            );
 			
 			
 			produtoRepository.saveAll(produtos);

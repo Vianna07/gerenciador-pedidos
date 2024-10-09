@@ -1,16 +1,11 @@
 package br.com.gerenciador.pedidos.demo.models;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import br.com.gerenciador.pedidos.demo.enums.StatusPedido;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +16,13 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+//	@ManyToMany
+//	@JoinTable(
+//			name = "pedido_produto",
+//			joinColumns = @JoinColumn(name = "pedido_id"),
+//			inverseJoinColumns = @JoinColumn(name = "produto_id")
+//	)
+//	private Set<Produto> produtos = new HashSet<Produto>();
 	@OneToOne
 	@JoinColumn
 	private Produto produto;
@@ -30,7 +32,9 @@ public class Pedido {
 	@Enumerated(EnumType.STRING)
 	private StatusPedido statusPedido;
 	
-	public Pedido(Produto produto, int quantidade, LocalDate data, StatusPedido statusPedido) {
+	public Pedido(int id, Produto produto, int quantidade, LocalDate data, StatusPedido statusPedido) {
+		this.id = id;
+//		this.produtos.add(produto);
 		this.produto = produto;
 		this.quantidade = quantidade;
 		this.data = data;

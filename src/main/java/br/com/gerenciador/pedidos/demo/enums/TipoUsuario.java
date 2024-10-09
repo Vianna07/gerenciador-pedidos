@@ -1,8 +1,10 @@
 package br.com.gerenciador.pedidos.demo.enums;
 
 public enum TipoUsuario {
-	ADMIN,
-	GERENTE,
-	FUNCIONARIO,
-	ALUNO;
+	ADMIN("Administrador"),
+	GERENTE("Gerente"),
+	FUNCIONARIO("Funcionário"),
+	ALUNO("Aluno");
+
+    TipoUsuario(String label) {}
 }
