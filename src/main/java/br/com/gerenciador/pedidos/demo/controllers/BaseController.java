@@ -2,6 +2,7 @@ package br.com.gerenciador.pedidos.demo.controllers;
 
 import java.util.Optional;
 
+//import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.ui.Model;
@@ -9,14 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 public abstract class BaseController<T, K extends JpaRepository<T, Integer>> {
 	@Autowired
-	private K repository;
+	public K repository;
 
-	private String LIST; 
-	private String LIST_URL;
-	private String FORM;
+	public String LIST;
+	public String LIST_URL;
+	public String FORM;
 	
 	public BaseController(String baseUrl) {
 		this.LIST = baseUrl + "/list";
@@ -25,7 +25,7 @@ public abstract class BaseController<T, K extends JpaRepository<T, Integer>> {
 	}
 	
 	public abstract void listModel(Model model);
-	public abstract void formModel(Model model, T t);
+	public abstract void formModel(Model model, T entity);
 	
 	@GetMapping
 	public String entrypoint() {
@@ -34,7 +34,7 @@ public abstract class BaseController<T, K extends JpaRepository<T, Integer>> {
 
 	@GetMapping("/list")
 	public String list(Model model) {
-		this.list(model);
+		this.listModel(model);
 		return this.LIST;
 	}
 	
@@ -45,17 +45,17 @@ public abstract class BaseController<T, K extends JpaRepository<T, Integer>> {
 	}
 	
 	@PostMapping("/save")
-	public String save(T t) {
-		repository.save(t);
+	public String save(T entity) {
+		repository.save(entity);
 		return "redirect:" + this.LIST_URL;
 	}
 	
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable("id") int id, Model model) {
-		Optional<T> usuarioOpt = repository.findById(id);
+		Optional<T> entityOpt = repository.findById(id);
 		
-		if (usuarioOpt.isPresent()) {
-			this.formModel(model, usuarioOpt.get());
+		if (entityOpt.isPresent()) {
+			this.formModel(model, entityOpt.get());
 			return this.FORM;
 		}
 		

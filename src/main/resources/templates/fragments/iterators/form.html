@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <form th:fragment="form(baseUrl, object, fields)"
+          th:action="@{|/${baseUrl}/save|}"
+          th:object="${produto}"
+          method="POST">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="mb-3" th:each="field : ${fields}">
+            <label th:for="${field.name}" class="form-label" th:text="${field.name}"></label>
+
+            <div th:switch="${field.type}">
+                <input th:case="'text'"
+                       type="text"
+                       class="form-control"
+                       th:id="${field.name}"
+                       th:field="*{field.name}"
+                       th:placeholder="${field.placeholder}"/>
+
+                <input th:case="'int'"
+                       type="number"
+                       class="form-control"
+                       th:id="${field.name}"
+                       th:field="*{${field.name}}"
+                       th:placeholder="${field.placeholder}"/>
+
+                <input th:case="'float'"
+                       type="number"
+                       class="form-control"
+                       th:id="${field.name}"
+                       th:field="*{${field.name}}"
+                       th:placeholder="${field.placeholder}"/>
+
+                <select th:case="'select'"
+                        class="form-control"
+                        th:id="${field.name}"
+                        th:field="*{${field.name}}">
+                    <option th:each="option : ${field.options}"
+                            th:value="${option}"
+                            th:text="${option}"></option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</body>
+</html>

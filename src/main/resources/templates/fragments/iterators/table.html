@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <table class="table"
+           th:fragment="table(columns, data, baseUrl)">
+        <thead>
+            <tr>
+                <th scope="col"
+                    th:each="column : ${columns}"
+                    th:text="${#strings.capitalize(column)}">
+                </th>
+                <th>
+                    Ações
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="object : ${data}">
+                <td th:each="column : ${columns}"
+                    th:text="${T(org.apache.commons.beanutils.PropertyUtils).getProperty(object, column)}">
+                </td>
+                <td class="d-flex gap-2">
+                    <div th:replace="~{fragments/icons/icon :: icon(
+                                        type='edit',
+                                        href=@{|/${baseUrl}/edit/${object.id}|},
+                                        tooltip='Editar',
+                                        tooltipColor='blue-tooltip'
+                                     )}"
+                    >
+                    </div>
+                    <div th:replace="~{fragments/icons/icon :: icon(
+                                        type='delete',
+                                        href=@{|/${baseUrl}/delete/${object.id}|},
+                                        tooltip='Deletar',
+                                        tooltipColor='red-tooltip',
+                                        class='text-danger'
+                                     )}"
+                    >
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

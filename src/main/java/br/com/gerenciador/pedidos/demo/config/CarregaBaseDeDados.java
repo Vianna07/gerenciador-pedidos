@@ -1,6 +1,5 @@
 package br.com.gerenciador.pedidos.demo.config;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import br.com.gerenciador.pedidos.demo.enums.StatusPedido;
 import br.com.gerenciador.pedidos.demo.enums.TipoUsuario;
 import br.com.gerenciador.pedidos.demo.models.Pedido;
 import br.com.gerenciador.pedidos.demo.models.Produto;
@@ -56,7 +54,7 @@ public class CarregaBaseDeDados {
 			
 			List<Pedido> pedidos = new ArrayList<>(
                     List.of(
-                            new Pedido(4, produtos.getFirst(), 1, LocalDate.now(), StatusPedido.ABERTO)
+//                            new Pedido(4, produtos.getFirst(), 1, LocalDate.now(), StatusPedido.ABERTO)
                     )
             );
 			

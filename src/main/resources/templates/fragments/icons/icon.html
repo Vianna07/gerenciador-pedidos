@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <a role="button" 
+       data-bs-toggle="tooltip"
+       data-bs-placement="top"
+       th:fragment="icon(type, href, tooltip, tooltipColor)"
+       th:class="${class}"
+       th:attr="data-bs-custom-class=${tooltipColor}, data-bs-title=${tooltip}"
+       th:href="${href}">
+        <div th:replace="fragments/icons/svgs :: ${type}"></div>
+    </a>
+
+    <!--
+    Optional Parameters:
+        - class
+    -->
+</body>
+</html>

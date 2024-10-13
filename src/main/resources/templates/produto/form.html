@@ -9,22 +9,28 @@
     <body>
         <div class="container-sm">
             <h1 class="text-center">Cadastro de Produto</h1>
-            <form th:action="@{/produto/save}" th:object="${produto}" method="POST">
-                <div class="mb-3">
-                    <input type="hidden" th:field="*{id}">
-                    <label for="inputNome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="inputNome" th:field="*{nome}">
-                </div>
-                <div class="mb-3">
-                    <label for="inputEstoque" class="form-label">Estoque</label>
-                    <input type="number" class="form-control" id="inputEstoque" th:field="*{estoque}">
-                </div>
-                <div class="mb-3">
-                    <label for="inputPreco" class="form-label">Preço</label>
-                    <input type="number" step="0.01" class="form-control" id="inputPreco" th:field="*{preco}">
-                </div>
-              <button type="submit" class="btn btn-primary">Enviar</button>
-            </form>
+<!--            <form th:action="@{/produto/save}" th:object="${produto}" method="POST">-->
+<!--                <div class="mb-3">-->
+<!--                    <input type="hidden" th:field="*{id}">-->
+<!--                    <label for="inputNome" class="form-label">Nome</label>-->
+<!--                    <input type="text" class="form-control" id="inputNome" th:field="*{nome}">-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="inputEstoque" class="form-label">Estoque</label>-->
+<!--                    <input type="number" class="form-control" id="inputEstoque" th:field="*{estoque}">-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="inputPreco" class="form-label">Preço</label>-->
+<!--                    <input type="number" step="0.01" class="form-control" id="inputPreco" th:field="*{preco}">-->
+<!--                </div>-->
+<!--              <button type="submit" class="btn btn-primary">Enviar</button>-->
+<!--            </form>-->
+            <div th:replace="~{fragments/iterators/form :: form(
+                                baseUrl='produto',
+                                object=${produto},
+                                fields=${fields},
+                             )}">
+            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
